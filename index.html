@@ -51,26 +51,59 @@
         }
     </style>
 </head>
+
 <body>
     <div class="container">
-        <h3>Mi Gatinha Lovinha</h3>
-        <h1>¿Quieres ser mi San Valentín? 🐾💕</h1>
+        <h3 id="nameGat">Mi Gatinha Lovinha</h3>
+        <h1 id="questionText">¿Quieres ser mi San Valentín? 🐾💕</h1>
         <div class="cat">
-            <img src="gatitos-corazon.gif" alt="Gatito tierno">
+            <img id="gifImage" src="gatitos-corazon.gif" alt="Gatito tierno">
         </div>
         
         <div class="buttons">
-            <button class="btn yes" onclick="alert('¡Sabía que dirías que sí! 😻')">Sí</button>
+            <button class="btn yes" onclick="changeContent()">Sí</button>
             <button class="btn no" id="noButton">No</button>
         </div>
     </div>
 
     <script>
+        let noClicks = 0; // Contador de los clics en "No"
+
+        // Función para cambiar el texto y el GIF al hacer clic en el botón "Sí"
+        function changeContent() {
+            // Cambiar el texto
+            document.getElementById("questionText").innerHTML = "¡Sabía que aceptarías! 😻";
+            document.getElementById("nameGat").innerHTML = "Yippee Yippee";
+            
+            // Cambiar el GIF a otro
+            document.getElementById("gifImage").src = "yippee-cat.gif"; // Cambia esto por la ruta de otro GIF
+
+            document.querySelector(".buttons").style.display = "none";
+
+            // Opcional: Puedes desactivar el botón "Sí" después de hacer clic
+            document.querySelector(".yes").disabled = true;
+        }
+
+        // Función para contar los clics en "No"
         document.getElementById("noButton").addEventListener("click", function() {
-            let x = Math.random() * (window.innerWidth - 100);
-            let y = Math.random() * (window.innerHeight - 50);
-            this.style.left = x + "px";
-            this.style.top = y + "px";
+            // Aumentar el contador
+            noClicks++;
+
+            // Si el botón "No" ha sido presionado 6 veces, cambia el texto y el GIF
+            if (noClicks === 6) {
+                document.getElementById("nameGat").innerHTML = "¡Ya basta!";
+                document.getElementById("questionText").innerHTML = "¡? Serás mi San Valentín ?!😼";
+                document.getElementById("gifImage").src = "sideeye.gif"; // Cambia por otro GIF
+
+                // Opcional: Puedes ocultar el botón "No" después de 6 clics
+                document.getElementById("noButton").style.display = "none";
+            } else {
+                // Mover el botón "No" a una posición aleatoria
+                let x = Math.random() * (window.innerWidth - 100);
+                let y = Math.random() * (window.innerHeight - 50);
+                this.style.left = x + "px";
+                this.style.top = y + "px";
+            }
         });
     </script>
 </body>
